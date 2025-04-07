@@ -1,0 +1,100 @@
+{
+  "name": "File Sharing Premium Bot",
+  "description": "Telegram File Sharing Premium Bot",
+  "logo": "https://images.app.goo.gl/vkcv94qQ1H33vr4T7",
+  "keywords": ["File Sharing Premium Bot", "MongoDB", "Telegram Bot"],
+  "repository": "https://github.com/JishuDeveloper/File-Sharing-Bot",
+  "success_url": "https://t.me/Madflix_Bots",
+  "env": {
+    "API_ID": {
+      "description": "Your APP ID From my.telegram.org",
+      "value": "22768311",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Your API Hash From my.telegram.org",
+      "value": "702d8884f48b42e865425391432b3794",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Your Bot Token From @BotFather",
+      "value": "",
+      "required": true
+    },
+    "OWNER_ID": {
+      "description": "Add Your User ID here",
+      "value": "6040503076",
+      "required": true
+    },
+    "CHANNEL_ID": {
+      "description": "Make a channel (database channel), then make the bot as admin in channel, and it's id",
+      "value": "-1002436399053",
+      "required": true
+    },
+    "FORCE_SUB_CHANNEL_1": {
+      "description": "ID of your first force sub channel",
+      "value": "-1002412965164",
+      "required": true
+    },
+    "FORCE_SUB_CHANNEL_2": {
+      "description": "ID of your second force sub channel",
+      "value": "-1002648489600",
+      "required": true
+    },
+    "DB_URL": {
+      "description": "Your MongoDB Database URL",
+      "value": "mongodb+srv://gamerspyer2023:HpcyTyfkjBYvLGi4@cluster0.xpucres.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+      "required": true
+    },
+    "DB_NAME": {
+      "description": "Your MongoDB Database Name",
+      "value": "Cluster0",
+      "required": true
+    },
+    "START_MESSAGE": {
+      "description": "Optional: start message of bot, use HTML parsemode format",
+      "value": "<b>ʜᴇʏ {first}!</b>\n\n<b>ᴍᴇʀᴀ ɴᴀᴀᴍ <u>Crunchyroll Vault</u> ʜᴀɪ, ᴍᴀɪ ᴇᴋ ʙᴏᴛ ʜᴜ.\nᴍᴀɪ ᴀᴀᴘᴋᴏ ᴀɴɪᴍᴇ ᴇᴘɪꜱᴏᴅᴇꜱ ᴀᴜʀ ᴘᴜʀᴇ ᴀɴɪᴍᴇꜱ ʜɪɴᴅɪ ᴅᴜʙ ᴍᴇɪɴ ᴅᴇᴛᴀ ʜᴜ.</b>\n<b>ᴀɢᴀʀ ᴀᴀᴘᴋᴏ ᴏʀ ᴀɴɪᴍᴇꜱ ᴄᴀʜɪʏᴇ ᴛᴏʜ, ʜᴀᴍᴀʀᴇ ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ ᴋᴏ ᴊᴏɪɴ ᴋᴀʀᴏ!</b>",
+      "required": false
+    },
+    "FORCE_SUB_MESSAGE": {
+      "description": "Optional: Force Sub message of bot, use HTML parsemode format",
+      "value": "<b>ʀᴏᴋᴏ {first}!</b>\n\n<b>ᴛᴜᴍɴᴇ ᴀʙʜɪ ᴛᴀᴋ ʜᴀᴍᴀʀᴀ ᴀɴɪᴍᴇ ᴄʜᴀɴɴᴇʟ ᴊᴏɪɴ ɴᴀʜɪɴ ᴋɪʏᴀ ʜᴀɪ!</b>\n<b>ᴀɴɪᴍᴇ ᴋᴇ ᴇᴘɪꜱᴏᴅᴇꜱ ᴀᴜʀ ᴘᴜʀᴇ ᴀɴɪᴍᴇꜱ ʜɪɴᴅɪ ᴍᴇɪɴ ᴅᴇᴋʜɴᴇ ᴋᴇ ʟɪʏᴇ, ᴘᴇʜʟᴇ ʜᴀᴍᴀʀᴇ ᴄʜᴀɴɴᴇʟꜱ ᴊᴏɪɴ ᴋᴀʀɴᴀ ʜᴏɢᴀ।</b>\n<b>ꜱᴀʙ ᴄʜᴀɴɴᴇʟꜱ ᴊᴏɪɴ ᴋᴀʀɴᴇ ᴋᴇ ʙᴀᴀᴅ <code>/start</code> ʟɪᴋʜᴏ ᴀᴜʀ ᴍᴀᴢᴀ ʟᴜᴛᴏ!</b>",
+      "required": false
+    },
+    "ADMINS": {
+      "description": "A space-separated list of user_ids of Admins",
+      "value": "5469101870 6848088376",
+      "required": false
+    },
+    "PROTECT_CONTENT": {
+      "description": "Protect contents from getting forwarded",
+      "value": "True",
+      "required": false
+    },
+    "DISABLE_CHANNEL_BUTTON": {
+      "description": "Disable channel button below media",
+      "value": "True",
+      "required": false
+    },
+    "FILE_AUTO_DELETE": {
+      "description": "Auto delete file message in seconds",
+      "value": "1800",
+      "required": false
+    },
+    "PORT": {
+      "description": "For deployment (usually Heroku)",
+      "value": "5467",
+      "required": false
+    },
+    "TG_BOT_WORKERS": {
+      "description": "Number of bot workers",
+      "value": "4",
+      "required": false
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
