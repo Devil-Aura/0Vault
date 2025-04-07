@@ -12,10 +12,6 @@ madflixofficials = FILE_AUTO_DELETE
 jishudeveloper = madflixofficials
 file_auto_delete = humanize.naturaldelta(jishudeveloper)
 
-
-
-
-
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
     id = message.from_user.id
@@ -77,7 +73,6 @@ async def start_command(client: Client, message: Message):
 
             try:
                 madflix_msg = await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
-                # await asyncio.sleep(0.5)
                 madflix_msgs.append(madflix_msg)
                 
             except FloodWait as e:
@@ -88,18 +83,17 @@ async def start_command(client: Client, message: Message):
             except:
                 pass
 
+        k = await client.send_message(
+            chat_id=message.from_user.id,
+            text=(
+                f"<b>❗️ Important ❗️</b>\n"
+                f"<b>ʏᴇ ᴠɪᴅᴇᴏ/ᴇᴘɪꜱᴏᴅᴇ {file_auto_delete} ᴍᴇɪɴ ᴅᴇʟᴇᴛᴇ ʜᴏ ᴊᴀᴀʏᴇɢɪ (ᴄᴏᴘʏʀɪɢʜᴛ ᴋɪ ᴠᴀᴊᴀʜ ꜱᴇ).</b>\n"
+                f"<b>📌 ɪꜱᴇ ᴀᴘɴɪ ꜱᴀᴠᴇᴅ ᴍᴇꜱꜱᴀɢᴇꜱ ʏᴀ ᴋɪꜱɪ ᴏʀ ᴊᴀɢᴀʜ ꜰᴏʀᴡᴀʀᴅ ᴋᴀʀᴋᴇ ᴡᴀʜᴀ ᴅᴏᴡɴʟᴏᴀᴅ ꜱᴛᴀʀᴛ ᴋᴀʀ ʟᴏ!</b>\n"
+                f"~@CrunchyRollChannel"
+            )
+        )
 
-        k = await client.send_message(chat_id = message.from_user.id, text=f"<b>❗️ <u>IMPORTANT</u> ❗️</b>\n\nThis Video / File Will Be Deleted In {file_auto_delete} (Due To Copyright Issues).\n\n📌 Please Forward This Video In Saved Message / File To Somewhere Else And Start Downloading There.")
-
-        # Schedule the file deletion
         asyncio.create_task(delete_files(madflix_msgs, client, k))
-        
-        # for madflix_msg in madflix_msgs: 
-            # try:
-                # await madflix_msg.delete()
-                # await k.edit_text("Your Video / File Is Successfully Deleted ✅ For More Anime In Hindi Dub Join @CrunchyRollOfficialChannel.") 
-            # except:    
-                # pass 
 
         return
     else:
@@ -125,12 +119,6 @@ async def start_command(client: Client, message: Message):
         )
         return
 
-    
-
-
-
-    
-    
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
     buttons = [
@@ -163,15 +151,11 @@ async def not_joined(client: Client, message: Message):
         disable_web_page_preview = True
     )
 
-
-
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=f"Processing...")
     users = await full_userbase()
     await msg.edit(f"{len(users)} Users Are Using This Bot")
-
-
 
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
 async def send_text(client: Bot, message: Message):
@@ -219,12 +203,6 @@ async def send_text(client: Bot, message: Message):
         await asyncio.sleep(8)
         await msg.delete()
 
-
-
-
-
-
-# Function to handle file deletion
 async def delete_files(messages, client, k):
     await asyncio.sleep(FILE_AUTO_DELETE)  # Wait for the duration specified in config.py
     for msg in messages:
@@ -232,10 +210,7 @@ async def delete_files(messages, client, k):
             await client.delete_messages(chat_id=msg.chat.id, message_ids=[msg.id])
         except Exception as e:
             print(f"The attempt to delete the media {msg.id} was unsuccessful: {e}")
-    # await client.send_message(messages[0].chat.id, "Your Video / File Is Successfully Deleted ✅")
-    await k.edit_text("Your Video / File Is Successfully Deleted ✅")
-
-
+    await k.edit_text("<b>✅ ᴀᴀᴘᴋᴀ ᴠɪᴅᴇᴏ/ᴀɴɪᴍᴇ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴅᴇʟᴇᴛᴇ ʜᴏ ɢᴀʏᴀ ʜᴀɪ!</b> ~@CrunchyRollChannel")
 
 # Jishu Developer 
 # Don't Remove Credit 🥺
