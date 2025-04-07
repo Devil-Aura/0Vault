@@ -11,13 +11,17 @@ API_HASH = os.environ.get("API_HASH", "702d8884f48b42e865425391432b3794")
 
 
 OWNER_ID = int(os.environ.get("OWNER_ID", "6040503076"))
-DB_URL = os.environ.get("DB_URL", "mongodb+srv://gamerspyer2023:HpcyTyfkjBYvLGi4@cluster0.dogml.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+
+DB_URL = os.environ.get(
+    "DB_URL",
+    "mongodb+srv://gamerspyer2023:HpcyTyfkjBYvLGi4@cluster0.xpucres.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+)
 DB_NAME = os.environ.get("DB_NAME", "Cluster0")
 
-
 CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002436399053"))
-FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "-1001999825163"))
 
+FORCE_SUB_CHANNEL_1 = int(os.environ.get("FORCE_SUB_CHANNEL_1", "-1002412965164"))
+FORCE_SUB_CHANNEL_2 = int(os.environ.get("FORCE_SUB_CHANNEL_2", "-1002648489600"))
 
 FILE_AUTO_DELETE = int(os.getenv("FILE_AUTO_DELETE", "1800")) # auto delete in seconds
 
