@@ -6,8 +6,8 @@ from pyrogram.enums import ParseMode
 from datetime import datetime
 import pyrogram.utils
 from config import (
-    API_ID, API_HASH, BOT_TOKEN, CHANNEL_ID, 
-    FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2, 
+    API_ID, API_HASH, BOT_TOKEN, CHANNEL_ID,
+    FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2,
     PORT, LOGGER, TG_BOT_WORKERS
 )
 from plugins import web_server
@@ -26,7 +26,6 @@ class Bot(Client):
             workers=TG_BOT_WORKERS
         )
         self.LOGGER = LOGGER
-        self.invitelinks = []
 
     async def start(self):
         await super().start()
@@ -34,22 +33,27 @@ class Bot(Client):
         usr_bot_me = await self.get_me()
         self.username = usr_bot_me.username
 
-        # Handle both Force Sub Channels
-        for channel_id in [FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2]:
-            if channel_id:
-                try:
-                    chat = await self.get_chat(channel_id)
+        # Force Subscribe Setup for Multiple Channels
+        self.invite_links = {}
+        for idx, channel in enumerate([FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2], start=1):
+            if not channel:
+                continue
+            try:
+                chat = await self.get_chat(channel)
+                link = chat.invite_link
+                if not link:
+                    await self.export_chat_invite_link(channel)
+                    chat = await self.get_chat(channel)
                     link = chat.invite_link
-                    if not link:
-                        await self.export_chat_invite_link(channel_id)
-                        chat = await self.get_chat(channel_id)
-                        link = chat.invite_link
-                    self.invitelinks.append(link)
-                except Exception as e:
-                    self.LOGGER(__name__).warning("Force Sub Error: %s", e)
-                    self.LOGGER(__name__).warning("Check FORCE_SUB_CHANNEL_1 / FORCE_SUB_CHANNEL_2 and Bot's Admin Rights.")
-                    self.LOGGER(__name__).info("Bot Stopped. Join @World_Fastest_Bots for help.")
-                    sys.exit()
+                self.invite_links[f"FORCE_SUB_CHANNEL_{idx}"] = link
+            except Exception as e:
+                self.LOGGER(__name__).warning(f"Force Sub Error in Channel {idx}: {e}")
+                self.LOGGER(__name__).warning(f"Check FORCE_SUB_CHANNEL_{idx} and Bot's Admin Rights.")
+
+        if not self.invite_links:
+            self.LOGGER(__name__).warning("No valid FORCE_SUB_CHANNEL found or bot missing admin rights.")
+            self.LOGGER(__name__).info("Bot Stopped. Join @World_Fastest_Bots for help.")
+            sys.exit()
 
         # DB Channel Check
         try:
@@ -79,7 +83,6 @@ class Bot(Client):
     async def stop(self, *args):
         await super().stop()
         self.LOGGER(__name__).info("Bot stopped successfully.")
-
 
 if __name__ == "__main__":
     Bot().run()
