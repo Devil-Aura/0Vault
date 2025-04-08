@@ -3,6 +3,7 @@ from config import DB_URL, DB_NAME
 
 dbclient = pymongo.MongoClient(DB_URL)
 database = dbclient[DB_NAME]
+db = database  # <-- add this
 user_data = database['users']
 
 
