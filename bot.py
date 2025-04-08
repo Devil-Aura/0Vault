@@ -5,7 +5,11 @@ from pyrogram import Client
 from pyrogram.enums import ParseMode
 from datetime import datetime
 import pyrogram.utils
-from config import (API_ID, API_HASH, BOT_TOKEN, CHANNEL_ID, FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2, PORT, LOGGER, TG_BOT_WORKERS)
+from config import (
+    API_ID, API_HASH, BOT_TOKEN, CHANNEL_ID,
+    FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2,
+    PORT, LOGGER, TG_BOT_WORKERS
+)
 from plugins import web_server
 
 # Fix for Min Channel ID bug
@@ -31,20 +35,24 @@ class Bot(Client):
         self.username = usr_bot_me.username
 
         # Force Subscribe Setup
-        if FORCE_SUB_CHANNEL_1 or FORCE_SUB_CHANNEL_2:
-            try:
-                chat = await self.get_chat(FORCE_SUB_CHANNEL)
-                link = chat.invite_link
-                if not link:
-                    await self.export_chat_invite_link(FORCE_SUB_CHANNEL)
-                    chat = await self.get_chat(FORCE_SUB_CHANNEL)
+        force_sub_channels = [FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2]
+        self.invitelinks = {}
+
+        for channel_id in force_sub_channels:
+            if channel_id:
+                try:
+                    chat = await self.get_chat(channel_id)
                     link = chat.invite_link
-                self.invitelink = link
-            except Exception as e:
-                self.LOGGER(__name__).warning("Force Sub Error: %s", e)
-                self.LOGGER(__name__).warning("Check FORCE_SUB_CHANNEL_1 / FORCE_SUB_CHANNEL_2 and Bot's Admin Rights.")
-                self.LOGGER(__name__).info("Bot Stopped. Join @World_Fastest_Bots for help.")
-                sys.exit()
+                    if not link:
+                        await self.export_chat_invite_link(channel_id)
+                        chat = await self.get_chat(channel_id)
+                        link = chat.invite_link
+                    self.invitelinks[channel_id] = link
+                except Exception as e:
+                    self.LOGGER(__name__).warning("Force Sub Error: %s", e)
+                    self.LOGGER(__name__).warning("Check FORCE_SUB_CHANNEL_1 / FORCE_SUB_CHANNEL_2 and Bot's Admin Rights.")
+                    self.LOGGER(__name__).info("Bot Stopped. Join @World_Fastest_Bots for help.")
+                    sys.exit()
 
         # DB Channel Check
         try:
