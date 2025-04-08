@@ -32,6 +32,17 @@ async def is_subscribed(filter, client, update):
         return False
 
 
+# Check if a user is a member of a specific channel
+async def check_user_joined(client, user_id, channel):
+    try:
+        member = await client.get_chat_member(chat_id=channel, user_id=user_id)
+        if member.status in ["kicked", "banned"]:
+            return False
+        return True
+    except:
+        return False
+
+
 # Encode a string to URL-safe Base64
 async def encode(string):
     string_bytes = string.encode("ascii")
