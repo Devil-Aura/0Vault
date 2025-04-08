@@ -34,27 +34,24 @@ class Bot(Client):
         self.username = usr_bot_me.username
 
         # Force Subscribe Setup for Multiple Channels
-        self.invite_links = {}
-        for idx, channel in enumerate([FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2], start=1):
-            if not channel:
-                continue
-            try:
-                chat = await self.get_chat(channel)
-                link = chat.invite_link
-                if not link:
-                    await self.export_chat_invite_link(channel)
-                    chat = await self.get_chat(channel)
-                    link = chat.invite_link
-                self.invite_links[f"FORCE_SUB_CHANNEL_{idx}"] = link
-            except Exception as e:
-                self.LOGGER(__name__).warning(f"Force Sub Error in Channel {idx}: {e}")
-                self.LOGGER(__name__).warning(f"Check FORCE_SUB_CHANNEL_{idx} and Bot's Admin Rights.")
-
-        if not self.invite_links:
-            self.LOGGER(__name__).warning("No valid FORCE_SUB_CHANNEL found or bot missing admin rights.")
-            self.LOGGER(__name__).info("Bot Stopped. Join @World_Fastest_Bots for help.")
-            sys.exit()
-
+self.force_sub_links = {}
+for idx, channel in enumerate([FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2], start=1):
+    if not channel:
+        self.LOGGER(__name__).warning(f"FORCE_SUB_CHANNEL_{idx} is not set.")
+        continue
+    try:
+        chat = await self.get_chat(channel)
+        if not chat.invite_link:
+            await self.export_chat_invite_link(chat.id)
+            chat = await self.get_chat(chat.id)
+        self.force_sub_links[idx] = chat.invite_link
+        self.LOGGER(__name__).info(f"Force Sub Channel {idx} link: {chat.invite_link}")
+    except Exception as e:
+        self.LOGGER(__name__).warning(f"Force Sub Error in Channel {idx}: {e}")
+        self.LOGGER(__name__).warning(f"Check FORCE_SUB_CHANNEL_{idx} and Bot's Admin Rights.")
+        self.LOGGER(__name__).info("Bot Stopped. Join @World_Fastest_Bots for help.")
+        sys.exit()
+        
         # DB Channel Check
         try:
             db_channel = await self.get_chat(CHANNEL_ID)
