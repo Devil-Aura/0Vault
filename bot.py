@@ -6,15 +6,14 @@ from pyrogram.enums import ParseMode
 from datetime import datetime
 import pyrogram.utils
 from config import (
-    API_ID, API_HASH, BOT_TOKEN, CHANNEL_ID,
-    FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2,
+    API_ID, API_HASH, BOT_TOKEN, CHANNEL_ID, 
+    FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2, 
     PORT, LOGGER, TG_BOT_WORKERS
 )
 from plugins import web_server
 
 # Fix for Min Channel ID bug
 pyrogram.utils.MIN_CHANNEL_ID = -1002436399053
-
 
 class Bot(Client):
     def __init__(self):
@@ -27,6 +26,7 @@ class Bot(Client):
             workers=TG_BOT_WORKERS
         )
         self.LOGGER = LOGGER
+        self.invitelinks = []
 
     async def start(self):
         await super().start()
@@ -34,11 +34,8 @@ class Bot(Client):
         usr_bot_me = await self.get_me()
         self.username = usr_bot_me.username
 
-        # Force Subscribe Setup
-        force_sub_channels = [FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2]
-        self.invitelinks = {}
-
-        for channel_id in force_sub_channels:
+        # Handle both Force Sub Channels
+        for channel_id in [FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2]:
             if channel_id:
                 try:
                     chat = await self.get_chat(channel_id)
@@ -47,7 +44,7 @@ class Bot(Client):
                         await self.export_chat_invite_link(channel_id)
                         chat = await self.get_chat(channel_id)
                         link = chat.invite_link
-                    self.invitelinks[channel_id] = link
+                    self.invitelinks.append(link)
                 except Exception as e:
                     self.LOGGER(__name__).warning("Force Sub Error: %s", e)
                     self.LOGGER(__name__).warning("Check FORCE_SUB_CHANNEL_1 / FORCE_SUB_CHANNEL_2 and Bot's Admin Rights.")
