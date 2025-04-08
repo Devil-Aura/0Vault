@@ -5,7 +5,7 @@ from pyrogram import Client
 from pyrogram.enums import ParseMode
 from datetime import datetime
 import pyrogram.utils
-from config import (API_ID,API_HASH,BOT_TOKEN,CHANNEL_ID,FORCE_SUB_CHANNEL,PORT,LOGGER,TG_BOT_WORKERS)
+from config import (API_ID, API_HASH, BOT_TOKEN, CHANNEL_ID, FORCE_SUB_CHANNEL_1, FORCE_SUB_CHANNEL_2, PORT, LOGGER, TG_BOT_WORKERS)
 from plugins import web_server
 
 # Fix for Min Channel ID bug
