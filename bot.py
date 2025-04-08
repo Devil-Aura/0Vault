@@ -31,7 +31,7 @@ class Bot(Client):
         self.username = usr_bot_me.username
 
         # Force Subscribe Setup
-        if FORCE_SUB_CHANNEL:
+        if FORCE_SUB_CHANNEL_1 or FORCE_SUB_CHANNEL_2:
             try:
                 chat = await self.get_chat(FORCE_SUB_CHANNEL)
                 link = chat.invite_link
