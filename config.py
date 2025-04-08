@@ -18,7 +18,7 @@ DB_NAME = os.environ.get("DB_NAME", "Cluster0")
 CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002436399053"))
 
 FORCE_SUB_CHANNEL_1 = -1002412965164
-FORCE_SUB_CHANNEL_2 = -1002648489600
+FORCE_SUB_CHANNEL_2 = -1002566509486
 
 FILE_AUTO_DELETE = int(os.getenv("FILE_AUTO_DELETE", "1800")) # auto delete in seconds
 
