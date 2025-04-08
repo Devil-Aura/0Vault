@@ -42,7 +42,7 @@ class Bot(Client):
                 self.invitelink = link
             except Exception as e:
                 self.LOGGER(__name__).warning("Force Sub Error: %s", e)
-                self.LOGGER(__name__).warning("Check FORCE_SUB_CHANNEL and Bot's Admin Rights.")
+                self.LOGGER(__name__).warning("Check FORCE_SUB_CHANNEL_1 / FORCE_SUB_CHANNEL_2 and Bot's Admin Rights.")
                 self.LOGGER(__name__).info("Bot Stopped. Join @World_Fastest_Bots for help.")
                 sys.exit()
 
